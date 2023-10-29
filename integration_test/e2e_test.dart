@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/di.dart';
 import 'package:flutter_challenge/main.dart';
-import 'package:flutter_challenge/ui/widgets/custom_button.dart';
+import 'package:flutter_challenge/view/widgets/custom_button.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -63,10 +62,8 @@ void main() {
     await tester.tap(dropdownItem);
     await tester.pumpAndSettle();
 
-    // click on any of the fetch button randomly
-    Random random = Random();
-    int randomNumber = random.nextInt(3);
-    final randomBreedBtn = find.byType(CustomButton).at(randomNumber);
+    // click on  first to fetch dog image
+    final randomBreedBtn = find.byType(CustomButton).first;
     await tester.tap(randomBreedBtn);
 
     // expect to find image
@@ -76,6 +73,7 @@ void main() {
   });
 }
 
+// make API call to complete
 Future<void> pumpUntilFound(
   WidgetTester tester,
   Finder finder, {

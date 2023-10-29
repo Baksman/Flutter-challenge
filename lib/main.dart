@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/di.dart';
-import 'package:flutter_challenge/ui/screen/dashbaord.dart';
-import 'package:flutter_challenge/ui/style/color_styles.dart';
+import 'package:flutter_challenge/view/screen/dashbaord.dart';
+import 'package:flutter_challenge/view/style/color_styles.dart';
 
 void main() {
   ServiceLocator.registerSl();

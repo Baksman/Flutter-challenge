@@ -20,10 +20,10 @@ class BaseViewBuilder<T extends BaseViewModel> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _BaseViewBuilderState<T> createState() => _BaseViewBuilderState<T>();
+  BaseViewBuilderState<T> createState() => BaseViewBuilderState<T>();
 }
 
-class _BaseViewBuilderState<T extends BaseViewModel>
+class BaseViewBuilderState<T extends BaseViewModel>
     extends State<BaseViewBuilder<T>> {
   @override
   void initState() {

@@ -2,7 +2,7 @@ import 'package:flutter_challenge/di.dart';
 import 'package:flutter_challenge/model/dog_breed.dart';
 import 'package:flutter_challenge/model/random_dog_breed.dart';
 import 'package:flutter_challenge/repository/dog_breed_repository.dart';
-import 'package:flutter_challenge/ui/widgets/toast.dart';
+import 'package:flutter_challenge/view/widgets/toast.dart';
 import 'package:flutter_challenge/viewmodel/base_viewmodel.dart';
 
 class DogBreedVm extends BaseViewModel {

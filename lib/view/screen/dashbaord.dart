@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/di.dart';
 import 'package:flutter_challenge/model/dog_breed.dart';
-import 'package:flutter_challenge/ui/style/color_styles.dart';
-import 'package:flutter_challenge/ui/widgets/custom_button.dart';
-import 'package:flutter_challenge/ui/widgets/dog_image_widget.dart';
+import 'package:flutter_challenge/view/style/color_styles.dart';
+import 'package:flutter_challenge/view/widgets/custom_button.dart';
+import 'package:flutter_challenge/view/widgets/dog_image_widget.dart';
 import 'package:flutter_challenge/viewmodel/base_vm_builder.dart';
 import 'package:flutter_challenge/viewmodel/dog_breed_vm.dart';
 

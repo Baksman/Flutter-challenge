@@ -5,4 +5,4 @@ get:
 run:
 	flutter run
 
-.PHONY integration_test get
+.PHONY	integration_test get run

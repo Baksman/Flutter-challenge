@@ -3,9 +3,9 @@
 This is a  test project build using Flutter and MVVM architecture(using provider for state management and get_it for dependency injection and service locator)
 
 ## Getting Started
-To run the project run *make run* or *flutter run* on the root of your project
+To run the project run *flutter run* or *make run* on the root of your project
 
-To run the e2e test run *make integration_test* or *flutter test integration_test*
+To run the e2e test run *flutter test integration_test* or *make integration_test* (via makefile)
 
 
 ## MVVM architectural style used

@@ -4,6 +4,8 @@ import 'package:flutter_challenge/repository/api_response.dart';
 import 'package:flutter_challenge/repository/base_repository.dart';
 
 class DogBreedRepo extends BaseDatasource {
+  DogBreedRepo({required super.client});
+
   Future<ApiResponse<RandomDogBreed>> getRandomBreedImages(String breed) async {
     final res = await sendGet(endpoint: "/breed/$breed/images");
     return res.transform((data) => RandomDogBreed.fromJson(data!));

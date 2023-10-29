@@ -48,6 +48,8 @@ dependencies:
 
 
 dev_dependencies:
+  mockito: ^5.4.2
+  http_client_test: 
   flutter_test:
     sdk: flutter
   integration_test:

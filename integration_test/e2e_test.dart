@@ -10,14 +10,15 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized(); // NEW
 
   ServiceLocator.registerSl();
-  testWidgets('Confirm app title and appbar on the dashaboard ',
+  testWidgets('To confirm app title and appbar on the dashboard ',
       (tester) async {
     await tester.pumpWidget(const MyApp());
     expect(find.text("Dog App"), findsOneWidget);
     expect(find.byKey(const Key("app-bar")), findsOneWidget);
   });
 
-  testWidgets('Confirm the buttons to get the apis shows after fetching  ',
+  testWidgets(
+      'To confirm the buttons to get the apis shows after fetching dog breeds ',
       (tester) async {
     await tester.pumpWidget(const MyApp());
 
@@ -43,10 +44,10 @@ void main() {
   });
 
   testWidgets(
-      'Confirm no image is displayed before dropdown is displayed and image displayed after',
+      'Select a value from dropdown and tap on one of the button to get dog images',
       (tester) async {
     await tester.pumpWidget(const MyApp());
-
+    // confirm image isnt dispalyed
     final offStage = find.byKey(const Key('offstage-widget'));
     await pumpUntilFound(tester, offStage);
     expect(offStage, findsOneWidget);
@@ -73,7 +74,7 @@ void main() {
   });
 }
 
-// make API call to complete
+// wait for API call to complete
 Future<void> pumpUntilFound(
   WidgetTester tester,
   Finder finder, {

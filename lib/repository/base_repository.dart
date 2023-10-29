@@ -26,7 +26,10 @@ import 'package:http/http.dart' as http;
 ///
 
 class BaseDatasource {
+  final http.Client client;
   final String baseUrl = "https://dog.ceo/api";
+
+  BaseDatasource({required this.client});
 
   Uri _url(
     String endpoint,
@@ -86,7 +89,7 @@ class BaseDatasource {
       bool userV2Prefix = true,
       bool istest = false,
       Map<String, dynamic>? queryParams}) {
-    final request = http.get(
+    final request = client.get(
       _url(endpoint),
       headers: jsonHeaders,
     );

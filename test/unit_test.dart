@@ -35,7 +35,7 @@ void main() {
     );
   }
 
-  group('get all dog breed dogbreedRepo', () {
+  group('getAllBreeds from DogBreedRepo', () {
     test('should verify get method whats called with correct url ', () async {
       // arrange
       await setUpMockHttpClientSuccess200(allbreedUrl, "all_breed");

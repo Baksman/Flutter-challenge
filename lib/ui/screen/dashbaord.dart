@@ -57,6 +57,7 @@ class Dashboard extends StatelessWidget {
                         ),
                       ]),
             appBar: AppBar(
+              key: const Key("app-bar"),
               backgroundColor: AppColor.teal,
               title: const Text(
                 "Dog App",

@@ -5,7 +5,11 @@ This is a  test project build using Flutter and MVVM architecture(using provider
 ## Getting Started
 To run the project run *flutter run* or *make run* on the root of your project
 
+### The test unit test is located in test folder and the integration test is located in integration test folder
+
 To run the e2e test run *flutter test integration_test* or *make integration_test* (via makefile)
+
+To run the e2e test run *flutter test test/unit_test.dart* 
 
 
 ## MVVM architectural style used

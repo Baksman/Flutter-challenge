@@ -80,6 +80,7 @@ class Dashboard extends StatelessWidget {
                           // height: 60,
                           color: AppColor.white,
                           child: DropdownButtonFormField<DogBreed>(
+                              key: const Key('breed-dropdown'),
                               isExpanded: true,
                               items: dogVm.allDogBreed!.message!.breed
                                   .map((DogBreed value) {

@@ -1,7 +1,8 @@
-integration_test:flutter test integration_test
-	flutter_challenge % flutter drive --driver=./test/integration_test/e2e_test.dart
+integration_test:
+	flutter test integration_test
+get:
+	flutter pub get
+run:
+	flutter run
 
-
-
-
-.PHONY	integration_test
+.PHONY integration_test get

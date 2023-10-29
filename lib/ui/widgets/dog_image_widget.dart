@@ -16,8 +16,8 @@ class DogBreedImageHolder extends StatelessWidget {
           child: CupertinoActivityIndicator(),
         );
       }
-      return const Center(
-        child: Offstage(),
+      return const Offstage(
+        key: Key('offstage-widget'),
       );
     }
     return ListView.separated(
@@ -30,6 +30,7 @@ class DogBreedImageHolder extends StatelessWidget {
         itemBuilder: (ctx, index) {
           return Container(
             height: 200,
+            key: const Key("image-widget"),
             decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,

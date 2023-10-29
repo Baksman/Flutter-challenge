@@ -1,6 +1,6 @@
 # flutter_challenge
 
-A new Flutter project.
+This is a  test project build using Flutter and MVVM architecture(using provider for state management and get_it for dependency injection and service locator)
 
 ## Getting Started
 

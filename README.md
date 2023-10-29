@@ -9,7 +9,7 @@ To run the project run *flutter run* or *make run* on the root of your project
 
 To run the e2e test run *flutter test integration_test* or *make integration_test* (via makefile)
 
-To run the e2e test run *flutter test test/unit_test.dart* 
+To run the unit test run *flutter test test/unit_test.dart* 
 
 
 ## MVVM architectural style used

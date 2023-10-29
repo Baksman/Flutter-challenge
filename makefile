@@ -7,4 +7,4 @@ test:
 run:
 	flutter run
 
-.PHONY	integration_test get run
+.PHONY	integration_test get run test

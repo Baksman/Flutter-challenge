@@ -43,6 +43,9 @@ dependencies:
   get_it: ^7.6.4
 # for chacking image
   cached_network_image: ^3.2.3
+  # for notification toast
+  fluttertoast: ^8.2.2
+
 
 dev_dependencies:
   flutter_test:

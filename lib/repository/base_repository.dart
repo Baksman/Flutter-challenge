@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/repository/api_response.dart';
 import 'package:flutter_challenge/repository/failure.dart';
 import 'package:flutter_challenge/utilities/network_utils.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import '../di.dart';
 
 /// [BaseDatasource]
 ///
@@ -28,24 +25,15 @@ import '../di.dart';
 /// conditions set in private function `_checkForError`
 ///
 
-// AuthTokenModel _token = AuthTokenModel.empty;
-
-// set dbToken(AuthTokenModel token) {
-//   _token = token;
-// }
-
 class BaseDatasource {
-  final String baseUrl = "";
+  final String baseUrl = "https://dog.ceo/api";
 
-  Uri _url(String endpoint, [bool hasV2Prefix = true, bool isTest = false]) =>
-      Uri.https(
-        RAW_BASE_URL,
-        '/$endpoint',
+  Uri _url(
+    String endpoint,
+  ) =>
+      Uri.parse(
+        '$baseUrl$endpoint',
       );
-
-  Uri _urlWithQueryParams(String endpoint, Map<String, dynamic> queryParams,
-          [bool hasV2Prefix = true, bool isTest = false]) =>
-      Uri.https(RAW_BASE_URL, '/$endpoint', queryParams);
 
   // String get userToken => _token.accessToken;
   Map<String, String> get jsonHeaders => {
@@ -82,7 +70,8 @@ class BaseDatasource {
       return ApiResponse(error: ServerFailure(error: TIME_OUT_MESSAGE));
     } on FormatException {
       return ApiResponse(error: ServerFailure(error: FORMAT_EXCEPTION));
-    } catch (e) {
+    } catch (e, s) {
+      debugPrint(s.toString());
       return ApiResponse(error: convertException(e));
     }
   }
@@ -97,59 +86,11 @@ class BaseDatasource {
       bool userV2Prefix = true,
       bool istest = false,
       Map<String, dynamic>? queryParams}) {
-    final url = queryParams != null
-        ? _urlWithQueryParams(endpoint, queryParams, userV2Prefix, istest)
-        : _url(endpoint, userV2Prefix, istest);
-
     final request = http.get(
-      url,
-      // headers: useToken ? jsonHeaders : jsonHeadersWithoutToken,
+      _url(endpoint),
       headers: jsonHeaders,
     );
-    debugPrint('REQUEST -- $url');
-    return _processRequest(request);
-  }
-
-  ///Send a http *POST* request to "`$baseUrl$`[endpoint]".
-  ///[payload] is encoded and sent as request body.
-  ///
-  ///[useToken] determines whether to add Authorisation token
-  ///to request headers.
-  Future<ApiResponse<Map<String, dynamic>>> sendPost(
-      {required String endpoint,
-      bool userV2Prefix = true,
-      bool istest = false,
-      required Map<String, dynamic> payload,
-      bool useToken = true}) async {
-    final url = _url(endpoint, userV2Prefix, istest);
-    final body = jsonEncode(payload);
-    final request = http.post(
-      url,
-      body: body,
-      // headers: useToken ? jsonHeaders : jsonHeadersWithoutToken,
-      headers: jsonHeaders,
-    );
-
-    debugPrint('REQUEST -- $url -- $payload');
-    return _processRequest(request);
-  }
-
-  Future<ApiResponse<Map<String, dynamic>>> sendListPost(
-      {required String endpoint,
-      bool userV2Prefix = true,
-      required List<Map<String, dynamic>> payload,
-      bool useToken = true}) async {
-    final url = _url(endpoint, userV2Prefix);
-    final body = jsonEncode(
-      payload,
-    );
-    final request = http.post(
-      url,
-      body: body,
-      headers: jsonHeaders,
-    );
-//  final respBody = await request.then((resp) => print(resp.body));
-    debugPrint('REQUEST -- $url -- $payload');
+    debugPrint('REQUEST -- $endpoint');
     return _processRequest(request);
   }
 
@@ -162,7 +103,7 @@ class BaseDatasource {
   Failure _checkForError(int statusCode, data) {
     String? returnedMessage;
     // returnedMessage = '';
-    // if (statusCode - 200 <= 99) return NullFailure();
+    if (statusCode - 200 <= 99) return NullFailure();
     if (data != null) {
       //Check if request was successful
       bool success = data['success'] ?? false;
@@ -171,13 +112,10 @@ class BaseDatasource {
       if (success) return NullFailure();
 
       //Check list of errors
-      if (data['message'] is String ||
-          data['msg'] is String ||
-          data['mgs'] is String) {
-        returnedMessage =
-            data['message'] ?? data['msg'] ?? data['mgs'] ?? data["error"];
+      if (data['message'] is String) {
+        returnedMessage = data['message'];
       }
-      final errors = data['message'] ?? data['msg'] ?? data["error"];
+      final errors = data['message'];
       if (errors is Map) {
         //If no error field - use messsage for failure
         if (errors.isEmpty) {
@@ -198,17 +136,9 @@ class BaseDatasource {
         returnedMessage = errors;
       }
     }
-    // showSimpleNotification(
-    //   Text(statusCode.toString() + "Status Code:"),
-    //   subtitle: Text(returnedMessage.toString()),
-    //   duration: Duration(minutes: 3),
-    //   background: primaryColor,
-    //   slideDismissDirection: DismissDirection.horizontal,
-    //   elevation: 5,
-    // );
 
     returnedMessage ??= SERVER_ERROR_MESSAGE;
-    print('-----$returnedMessage-----');
+    debugPrint('-----$returnedMessage-----');
 
     if (statusCode == 401) {
       return BadAuthFailure(errorMessage: returnedMessage!);

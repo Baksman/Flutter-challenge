@@ -41,7 +41,7 @@ dependencies:
   provider: ^6.0.5
   # for dependency injection and service locator
   get_it: ^7.6.4
-# for chacking image
+# for caching image
   cached_network_image: ^3.2.3
   # for notification toast
   fluttertoast: ^8.2.2

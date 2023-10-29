@@ -41,11 +41,11 @@ class DogBreedVm extends BaseViewModel {
 
   RandomDogBreed? randomDogBreed;
   Future<void> getRandomBreedImages() async {
-    randomDogBreed = null;
     if (selectedBreed == null) {
       ToastUtils.showToast("Kindly select image breed");
       return;
     }
+    randomDogBreed = null;
 
     setState(viewState: ViewState.busy);
     final res = await dogbreedRepo.getRandomBreedImages(selectedBreed!.name);
@@ -57,5 +57,55 @@ class DogBreedVm extends BaseViewModel {
       randomDogBreed = res.data!;
       setState(viewState: ViewState.done);
     }
+  }
+
+  Future<void> getBreedRandomImage() async {
+    randomDogBreed = null;
+    setState(viewState: ViewState.busy);
+    final res = await dogbreedRepo.getBreedRandomImage();
+
+    if (res.hasError) {
+      ToastUtils.showToast(res.error.toString());
+      setState(viewState: ViewState.error);
+    } else {
+      randomDogBreed = res.data!;
+      setState(viewState: ViewState.done);
+    }
+  }
+
+  // getBreedRandomImage
+
+  Future<void> getRandomImageByBreed() async {
+    if (selectedBreed == null) {
+      ToastUtils.showToast("Kindly select image breed");
+      return;
+    }
+    randomDogBreed = null;
+    setState(viewState: ViewState.busy);
+    final res = await dogbreedRepo.getRandomImageByBreed(selectedBreed!.name);
+
+    if (res.hasError) {
+      ToastUtils.showToast(res.error.toString());
+      setState(viewState: ViewState.error);
+    } else {
+      randomDogBreed = res.data!;
+      setState(viewState: ViewState.done);
+    }
+  }
+
+  Future<void> getImageListByBreed() async {
+    if (selectedBreed == null) {
+      ToastUtils.showToast("Kindly select image breed");
+      return;
+    }
+
+    if (selectedSubBreed == null &&
+        (dogSubBreed?.subBreeds.isNotEmpty ?? true)) {
+      ToastUtils.showToast("Kindly select dog subbreed");
+      return;
+    }
+
+    ToastUtils.showToast(
+        "Theres no endpoint for subbreed images according to the doc whats avaialable is and endpoint for for subbreed names which is already gotten from https://dog.ceo/api/breeds/list/all and cached");
   }
 }

@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/di.dart';
 import 'package:flutter_challenge/model/dog_breed.dart';
+import 'package:flutter_challenge/ui/style/color_styles.dart';
 import 'package:flutter_challenge/ui/widgets/custom_button.dart';
-import 'package:flutter_challenge/viewmodel/base_viewmodel.dart';
+import 'package:flutter_challenge/ui/widgets/dog_image_widget.dart';
 import 'package:flutter_challenge/viewmodel/base_vm_builder.dart';
 import 'package:flutter_challenge/viewmodel/dog_breed_vm.dart';
 
@@ -29,32 +29,38 @@ class Dashboard extends StatelessWidget {
                     children: [
                         CustomButton(
                           title: "Random image by breed",
-                          onTap: () {},
-                          color: Colors.red,
+                          onTap: () {
+                            dogVm.getBreedRandomImage();
+                          },
+                          color: AppColor.red,
                         ),
                         CustomButton(
                           title: "Images list by breed",
                           onTap: () {
                             dogVm.getRandomBreedImages();
                           },
-                          color: Colors.teal,
+                          color: AppColor.teal,
                         ),
                         CustomButton(
                           title: "Random image by breed and sub breed",
-                          onTap: () {},
-                          color: Colors.orange,
+                          onTap: () {
+                            dogVm.getRandomImageByBreed();
+                          },
+                          color: AppColor.orange,
                         ),
                         CustomButton(
                           title: "Images list by breed and sub breed",
-                          onTap: () {},
-                          color: Colors.black,
+                          onTap: () {
+                            dogVm.getImageListByBreed();
+                          },
+                          color: AppColor.black,
                         ),
                       ]),
             appBar: AppBar(
-              backgroundColor: Colors.teal,
+              backgroundColor: AppColor.teal,
               title: const Text(
                 "Dog App",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: AppColor.white),
               ),
             ),
             body: dogVm.allDogBreed == null
@@ -71,7 +77,7 @@ class Dashboard extends StatelessWidget {
                         ),
                         Card(
                           // height: 60,
-                          color: Colors.white,
+                          color: AppColor.white,
                           child: DropdownButtonFormField<DogBreed>(
                               isExpanded: true,
                               items: dogVm.allDogBreed!.message!.breed
@@ -94,7 +100,7 @@ class Dashboard extends StatelessWidget {
                           height: 10,
                         ),
                         Card(
-                          color: Colors.white,
+                          color: AppColor.white,
                           child: DropdownButtonFormField<String>(
                               value: dogVm.selectedSubBreed,
                               hint: (dogVm.dogSubBreed?.subBreeds.isEmpty ??
@@ -123,43 +129,6 @@ class Dashboard extends StatelessWidget {
                       ],
                     ),
                   )),
-          );
-        });
-  }
-}
-
-class DogBreedImageHolder extends StatelessWidget {
-  DogBreedImageHolder({super.key});
-  final dogBreedVm = getIt.get<DogBreedVm>();
-  @override
-  Widget build(BuildContext context) {
-    if (dogBreedVm.randomDogBreed == null) {
-      if (dogBreedVm.viewState == ViewState.busy) {
-        return const Center(
-          child: CupertinoActivityIndicator(),
-        );
-      }
-      return const Center(
-        child: Offstage(),
-      );
-    }
-    return ListView.separated(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        separatorBuilder: (_, __) => const SizedBox(
-              height: 10,
-            ),
-        itemCount: dogBreedVm.randomDogBreed?.message?.length ?? 0,
-        itemBuilder: (ctx, index) {
-          return Container(
-            height: 200,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(
-                        dogBreedVm.randomDogBreed!.message![index].imageUrl)),
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.blue),
           );
         });
   }

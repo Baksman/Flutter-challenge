@@ -5,15 +5,25 @@ class RandomDogBreed {
   List<DogImage>? message;
   String? status;
 
-  RandomDogBreed({this.message, this.status});
+  RandomDogBreed({
+    this.message,
+    this.status,
+  });
 
   RandomDogBreed.fromJson(Map<String, dynamic> json) {
     // message = json['message'].cast<String>();
     message = [];
 
     if (json['message'] != null) {
-      for (var element in (json['message'] as List<dynamic>)) {
-        message!.add(DogImage(imageUrl: element));
+      if (json['message'] is List) {
+        for (var element in (json['message'] as List<dynamic>)) {
+          message!.add(DogImage(imageUrl: element));
+        }
+      }
+
+      if (json['message'] is String?) {
+        message!.clear();
+        message!.add(DogImage(imageUrl: json['message'].toString()));
       }
     }
     status = json['status'];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_challenge/di.dart';
 import 'package:flutter_challenge/ui/screen/dashbaord.dart';
+import 'package:flutter_challenge/ui/style/color_styles.dart';
 
 void main() {
   ServiceLocator.registerSl();
@@ -14,9 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Dog App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal,primary: Colors.teal),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: AppColor.teal, primary: AppColor.teal),
         useMaterial3: true,
       ),
       home: const Dashboard(),

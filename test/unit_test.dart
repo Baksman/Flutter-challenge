@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_challenge/model/dog_breed.dart';
+import 'package:flutter_challenge/model/random_dog_breed.dart';
 import 'package:flutter_challenge/repository/base_repository.dart';
 import 'package:flutter_challenge/repository/dog_breed_repository.dart';
 import 'package:http/http.dart' as http;
@@ -10,6 +11,7 @@ import 'response/json_reader.dart';
 import 'widget_test.mocks.dart';
 
 const allbreedUrl = "https://dog.ceo/api/breeds/list/all";
+const randomBreedUrl = "https://dog.ceo/api/breeds/image/random";
 // Generate a MockClient using the Mockito package.
 // Create new instances of this class in each test.
 @GenerateMocks([http.Client])
@@ -53,7 +55,7 @@ void main() {
     });
 
     test(
-      'should return news when the response code is 200 (success)',
+      'should return all  breeds when the response code is 200 (success)',
       () async {
         // arrange
         setUpMockHttpClientSuccess200(allbreedUrl, "all_breed");
@@ -63,9 +65,44 @@ void main() {
         );
         final result = await dogbreedRepo.getAllBreeds();
 
-        DogBreedData news = result.data!;
+        DogBreedData dogbreed = result.data!;
         // assert
-        expect(news, isA<DogBreedData>());
+        expect(dogbreed, isA<DogBreedData>());
+      },
+    );
+  });
+
+  group('getBreedRandomImage from DogBreedRepo', () {
+    test('should verify get method whats called with correct url ', () async {
+      // arrange
+      await setUpMockHttpClientSuccess200(randomBreedUrl, "random_breed");
+
+      // act
+      await baseDatasource.sendGet(endpoint: '/breeds/image/random');
+      await dogbreedRepo.getBreedRandomImage();
+      // assert
+      verify(
+        client!.get(
+          Uri.parse(allbreedUrl),
+          headers: jsonHeaders,
+        ),
+      );
+    });
+
+    test(
+      'should return random breed iamge when the response code is 200 (success)',
+      () async {
+        // arrange
+        setUpMockHttpClientSuccess200(randomBreedUrl, "random_breed");
+        // act
+        await baseDatasource.sendGet(
+          endpoint: '/breeds/image/random',
+        );
+        final result = await dogbreedRepo.getBreedRandomImage();
+
+        RandomDogBreed breedImage = result.data!;
+        // assert
+        expect(breedImage, isA<RandomDogBreed>());
       },
     );
   });

@@ -12,6 +12,7 @@ import 'widget_test.mocks.dart';
 
 const allbreedUrl = "https://dog.ceo/api/breeds/list/all";
 const randomBreedUrl = "https://dog.ceo/api/breeds/image/random";
+
 // Generate a MockClient using the Mockito package.
 // Create new instances of this class in each test.
 @GenerateMocks([http.Client])
@@ -23,6 +24,7 @@ void main() {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   };
+
   setUpAll(() {
     client = MockClient();
     dogbreedRepo = DogBreedRepo(client: client!);

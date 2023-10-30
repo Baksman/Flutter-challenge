@@ -7,7 +7,7 @@ To run the project run *flutter run* or *make run* on the root of your project
 
 ## The  unit test is located in test folder and the integration test is located in integration_test folder
 
-To run the e2e test run *flutter test integration_test* or *make integration_test* (via makefile)
+To run the e2e test open your simulator then run *flutter test integration_test* or *make integration_test* (via makefile)
 
 To run the unit test run *flutter test test/unit_test.dart* 
 

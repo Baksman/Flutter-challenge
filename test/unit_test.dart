@@ -38,7 +38,7 @@ void main() {
   }
 
   group('getAllBreeds from DogBreedRepo', () {
-    test('should verify get method whats called with correct url ', () async {
+    test('should verify get method was called with correct url ', () async {
       // arrange
       await setUpMockHttpClientSuccess200(allbreedUrl, "all_breed");
 
@@ -73,7 +73,7 @@ void main() {
   });
 
   group('getBreedRandomImage from DogBreedRepo', () {
-    test('should verify get method whats called with correct url ', () async {
+    test('should verify get method was called with correct url ', () async {
       // arrange
       await setUpMockHttpClientSuccess200(randomBreedUrl, "random_breed");
 
